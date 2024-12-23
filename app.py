@@ -41,8 +41,14 @@ def generate(prompt):
 
 # Function to encode the logo image to Base64
 def encode_logo_to_base64(image_path):
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode()
+    try:
+        with open(image_path, "rb") as image_file:
+            # Read the image and encode it in base64
+            base64_str = base64.b64encode(image_file.read()).decode()
+            return base64_str
+    except Exception as e:
+        print(f"Error encoding logo: {e}")
+        return None
 
 # Display the logo in the top-left corner using custom CSS
 st.markdown(
@@ -59,11 +65,15 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
-# Encode the logo image to Base64
+# Test the path and encoding of the logo
 logo_base64 = encode_logo_to_base64("Zunno logo (1).png")
 
-# Display the logo image in the top-left corner
-st.markdown(f'<img class="logo" src="data:image/png;base64,{logo_base64}" alt="Logo"/>', unsafe_allow_html=True)
+# Check if the encoding is successful
+if logo_base64:
+    print("Logo encoded to Base64 successfully.")
+    st.markdown(f'<img class="logo" src="data:image/png;base64,{logo_base64}" alt="Logo"/>', unsafe_allow_html=True)
+else:
+    print("Failed to encode the logo. Please check the image path.")
 
 # Main content
 st.write("Create a realistic image of [Brand Name]'s [Product Name] in a stylish, everyday setting. Add text overlay: 'Holiday Sale – 50% Off!' with festive elements like snowflakes or subtle Christmas décor. Natural lighting highlights the product, conveying warmth, quality, and an inviting atmosphere for the season’s best deal.")
