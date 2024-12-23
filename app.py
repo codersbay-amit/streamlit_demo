@@ -39,6 +39,11 @@ def generate(prompt):
     else:
         print(f"Error {response.status_code}: {response.text}")
 
+# Function to encode the logo image to Base64
+def encode_logo_to_base64(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode()
+
 # Display the logo in the top-left corner using custom CSS
 st.markdown(
     """
@@ -54,10 +59,11 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
-# Display the logo image
-st.markdown('<img class="logo" src="data:image/png;base64,{}" alt="Logo"/>'.format(
-    base64.b64encode(open("Zunno logo (1).png", "rb").read()).decode()
-), unsafe_allow_html=True)
+# Encode the logo image to Base64
+logo_base64 = encode_logo_to_base64("Zunno logo (1).png")
+
+# Display the logo image in the top-left corner
+st.markdown(f'<img class="logo" src="data:image/png;base64,{logo_base64}" alt="Logo"/>', unsafe_allow_html=True)
 
 # Main content
 st.write("Create a realistic image of [Brand Name]'s [Product Name] in a stylish, everyday setting. Add text overlay: 'Holiday Sale – 50% Off!' with festive elements like snowflakes or subtle Christmas décor. Natural lighting highlights the product, conveying warmth, quality, and an inviting atmosphere for the season’s best deal.")
@@ -65,4 +71,5 @@ st.write("Create a realistic image of [Brand Name]'s [Product Name] in a stylish
 # Input prompt from user
 if prompt := st.chat_input("Create a realistic image of [Brand Name]'s [Product Name] in a ...."):
     image = generate(prompt=prompt)
-    st.image(image)
+    if image:
+        st.image(image)
