@@ -42,7 +42,7 @@ def generate(prompt):
 
 
 st.write("Create a realistic image of [Brand Name]'s [Product Name] in a stylish, everyday setting. Add text overlay: 'Holiday Sale – 50% Off!' with festive elements like snowflakes or subtle Christmas décor. Natural lighting highlights the product, conveying warmth, quality, and an inviting atmosphere for the season’s best deal.")
-if prompt:=st.chat_input("generate a promotional post to shoe sale on christmas"):
+if prompt:=st.chat_input("Create a realistic image of [Brand Name]'s [Product Name] in a ...."):
     image=generate(prompt=prompt)
     st.write(image)
     
