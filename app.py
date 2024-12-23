@@ -39,7 +39,7 @@ def generate(prompt):
     else:
         print(f"Error {response.status_code}: {response.text}")
 
-
+st.image("Zunno logo (1).png")
 
 st.write("Create a realistic image of [Brand Name]'s [Product Name] in a stylish, everyday setting. Add text overlay: 'Holiday Sale – 50% Off!' with festive elements like snowflakes or subtle Christmas décor. Natural lighting highlights the product, conveying warmth, quality, and an inviting atmosphere for the season’s best deal.")
 if prompt:=st.chat_input("Create a realistic image of [Brand Name]'s [Product Name] in a ...."):
